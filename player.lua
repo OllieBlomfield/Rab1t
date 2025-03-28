@@ -1,7 +1,7 @@
 function player_init()
     plr = {
-        x=0,
-        y=0,
+        x=80,
+        y=45,
         dx=0,
         dy=0,
         ship_sprite=love.graphics.newImage('sprites/ship/testShip.png')
@@ -14,5 +14,6 @@ function player_update()
 end
 
 function player_draw()
+    love.graphics.draw(plr.ship_sprite,plr.x,plr.y,t/300,3,3,16,16)
     love.graphics.draw(plr.ship_sprite,plr.x,plr.y)
 end
