@@ -2,7 +2,7 @@ function enemy_init()
     
 end
 
-function enemy_update()
+function enemy_update(dt)
 
 end
 

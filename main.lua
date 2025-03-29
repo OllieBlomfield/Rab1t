@@ -4,10 +4,11 @@
 push = require("push")
 require("player")
 require("enemy")
+require("bullets")
 
 --sets window stuffs
 love.window.setTitle("Rab1t")
---push:setupScreen(256, 192, 1024, 768, {false, false, false, true})
+push:setupScreen(256, 192, 1024, 768, {false, false, false, true})
 
 
 function love.load()
@@ -21,19 +22,23 @@ function love.load()
 end
 
 function love.update(dt)
-    t = t + 1
+    t = t + dt
 
     --updates objects
-    player_update()
-    enemy_update()
+    player_update(dt)
+    enemy_update(dt)
+    bullet_update(dt)
 end
 
+--love.graphics.setBackgroundColor(0,0.8,0,0)
 function love.draw()
-    --push:apply("start")
+    push:apply("start")
     love.graphics.setDefaultFilter("nearest","nearest")
 
+    
     player_draw()
     enemy_draw()
+    bullet_draw()
 
-    --push:apply("end")
+    push:apply("end")
 end
