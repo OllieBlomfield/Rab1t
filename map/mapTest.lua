@@ -1,0 +1,141 @@
+return {
+  version = "1.10",
+  luaversion = "5.1",
+  tiledversion = "1.11.2",
+  class = "",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 16,
+  height = 12,
+  tilewidth = 16,
+  tileheight = 16,
+  nextlayerid = 3,
+  nextobjectid = 1,
+  properties = {},
+  tilesets = {
+    {
+      name = "TestTileset",
+      firstgid = 1,
+      class = "",
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 4,
+      image = "map_tiles.png",
+      imagewidth = 64,
+      imageheight = 32,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 8,
+      tiles = {}
+    },
+    {
+      name = "TestTileset",
+      firstgid = 9,
+      class = "",
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 4,
+      image = "map_tiles.png",
+      imagewidth = 64,
+      imageheight = 32,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 8,
+      tiles = {}
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 12,
+      id = 1,
+      name = "Ground",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5, 3, 3, 3, 3,
+        6, 5, 2, 2, 6, 6, 6, 6, 6, 5, 5, 3, 3, 3, 3, 3,
+        5, 5, 1, 1, 1, 7, 5, 5, 6, 5, 6, 3, 3, 3, 3, 3,
+        5, 5, 7, 5, 5, 5, 5, 7, 6, 6, 7, 5, 3, 3, 3, 6,
+        5, 5, 5, 5, 6, 6, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 7,
+        7, 6, 6, 6, 1, 1, 1, 1, 5, 5, 5, 5, 7, 5, 5, 5,
+        5, 5, 5, 7, 7, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5,
+        5, 6, 7, 7, 7, 6, 6, 5, 5, 6, 6, 5, 5, 5, 5, 5,
+        5, 5, 7, 7, 7, 5, 5, 5, 5, 6, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 5, 5, 5, 6, 5, 6,
+        5, 5, 5, 6, 6, 6, 6, 5, 5, 5, 7, 5, 5, 5, 5, 6
+      }
+    },
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 12,
+      id = 2,
+      name = "Trees",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    }
+  }
+}
