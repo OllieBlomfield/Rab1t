@@ -1,4 +1,5 @@
 local keyPress = ''
+require("extra")
 
 
 function player_init()
@@ -10,7 +11,7 @@ function player_init()
         dy=0,
         rot=0,
         bt_rot=0,
-        hp=5,
+        hp=2,
         max_hp=5,
         tank_speed=30,
         rot_speed=2,
@@ -42,6 +43,7 @@ function player_update(dt)
 
     plr.reload_time=math.max(plr.reload_time-dt,0)
     keyPress = ''
+
     --plr.collider:setX(plr.x) 
     --plr.collider:setY(plr.y)
     
@@ -82,19 +84,24 @@ function tank_update(dt)
     if love.keyboard.isDown("w") then
         plr.x = plr.x + plr.tank_speed * math.cos(plr.rot) * dt
         plr.y = plr.y + plr.tank_speed * math.sin(plr.rot) * dt
-        plr.bt_rot=plr.rot
+        plr.bt_rot=lerp(plr.bt_rot,plr.rot,0.05)
     end
 
     if love.keyboard.isDown("s") then
         plr.x = plr.x - plr.tank_speed * math.cos(plr.rot) * dt
         plr.y = plr.y - plr.tank_speed * math.sin(plr.rot) * dt
-        plr.bt_rot=plr.rot
+        plr.bt_rot=lerp(plr.bt_rot,plr.rot,0.05)
     end
 
     if love.keyboard.isDown("m") and plr.reload_time==0 then
         
-        add_bullet(plr.x+10*math.cos(plr.rot),plr.y+17*math.sin(plr.rot),plr.rot,90,1)
+        --add_bullet(plr.x+10*math.cos(plr.rot),plr.y+17*math.sin(plr.rot),plr.rot,90,1)
+        add_bullet(plr.x,plr.y,plr.rot,90,1)
         plr.reload_time=0.3
+    end
+
+    if plr.hp<=0 then
+        plr.state=1
     end
 end
 

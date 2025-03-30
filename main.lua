@@ -24,6 +24,8 @@ function love.load()
     world:addCollisionClass('Enemy', {ignores = {'Player'}})
     world:addCollisionClass('Ghost', {ignores = {'Ghost'}})
     ]]
+    sti = require("libraries/sti")
+    game_map = sti('map/mapTest.lua')
     t=0 --temporary time variable (number of frames since start, should be change to use delta time when I work that out)
     
     --initialises objects
@@ -48,7 +50,7 @@ function love.draw()
     push:apply("start")
     
 
-    
+    game_map:draw()
     player_draw()
     enemy_draw()
     bullet_draw()
