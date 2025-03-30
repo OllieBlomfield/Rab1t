@@ -32,6 +32,6 @@ end
 
 function bullet_draw()
     for i,b in ipairs(bullets) do
-        love.graphics.draw(bullet_img,b.x,b.y,b.rot,1.3,1.3,4,8)
+        love.graphics.draw(bullet_img,b.x,b.y,b.rot,1.3,1.3)
     end
 end

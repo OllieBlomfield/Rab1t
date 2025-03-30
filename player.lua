@@ -1,5 +1,6 @@
 local keyPress = ''
 require("extra")
+require("shoot_effect")
 
 function player_init()
     plr = {
@@ -15,7 +16,7 @@ function player_init()
         bullet_spd=280,
         tank_speed=100,
         rot_speed=2,
-        rabbit_speed=6,
+        rabbit_speed=20,
         reload_time=0,
         tank_sprite=love.graphics.newImage('sprites/tank/tank_top.png'),
         tank_base_sprite=love.graphics.newImage('sprites/tank/tank_bottom.png'),
@@ -93,8 +94,11 @@ function tank_update(dt)
     end
 
     if love.keyboard.isDown("m") and plr.reload_time==0 then
-        
-        add_bullet(plr.x+36*math.cos(plr.rot),plr.y+36*math.sin(plr.rot),plr.rot,plr.bullet_spd,1)
+        local spx = (plr.x-5)+48*math.cos(plr.rot)
+        local spy = (plr.y-8)+48*math.sin(plr.rot)
+        add_shoot_effect(spx,spy)
+        add_bullet(spx,spy,plr.rot,plr.bullet_spd,1)
+        shake=0.1+t
         --add_bullet(plr.x,plr.y,plr.rot,90,1)
         plr.reload_time=0.3
     end

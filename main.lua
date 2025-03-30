@@ -7,6 +7,8 @@ require("enemy")
 require("bullets")
 require("collision")
 require("ui")
+require("shoot_effect")
+require("extra")
 
 --sets window stuffs
 love.window.setTitle("Tank-Rabbit")
@@ -28,6 +30,7 @@ function love.load()
     cam = camera()
     sti = require("libraries/sti")
     game_map = sti('map/map_final.lua')
+    shake=0
     t=0 --temporary time variable (number of frames since start, should be change to use delta time when I work that out)
     
     --initialises objects
@@ -41,7 +44,7 @@ function love.update(dt)
 
     --updates objects
     player_update(dt)
-    cam:lookAt(plr.x,plr.y)
+    cam:lookAt(plr.x+offset_x,plr.y+offset_y)
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
     local map_w = game_map.width * game_map.tilewidth
@@ -63,10 +66,15 @@ function love.update(dt)
         cam.y = map_h - h/2
     end
 
-
+    if t < shake then
+        local offx = love.math.random(-3, 3)
+        local offy = love.math.random(-3, 3)
+        cam:move(offx, offy)
+    end
 
     enemy_update(dt)
     bullet_update(dt)
+    shoot_effect_update(dt)
 
     --world:update(dt)
 end
@@ -80,8 +88,11 @@ function love.draw()
         player_draw()
         enemy_draw()
         bullet_draw()
+        shoot_effect_draw()
+        
+        
     cam:detach()
-
+    
     ui_game_draw()
     --world:draw()
 
