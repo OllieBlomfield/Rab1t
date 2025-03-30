@@ -13,6 +13,7 @@ function player_init()
         rot=0,
         bt_rot=0,
         hp=2,
+        inv=0,
         max_hp=5,
         bullet_spd=280,
         tank_speed=100,
@@ -22,7 +23,8 @@ function player_init()
         tank_sprite=love.graphics.newImage('sprites/tank/tank_top.png'),
         tank_base_sprite=love.graphics.newImage('sprites/tank/tank_bottom.png'),
         rabbit_idle_sprite = love.graphics.newImage('sprites/idlerabbit.png'),
-        animation = newAnimation(love.graphics.newImage("sprites/weakplayer.png"), 32, 32, 0.3)
+        animation = newAnimation(love.graphics.newImage("sprites/weakplayer.png"), 32, 32, 0.23),
+        start_jump=false
         --is_hopping=0,
         --plr_sprite
     }
@@ -45,6 +47,7 @@ function player_update(dt)
     plr.reload_time=math.max(plr.reload_time-dt,0)
     keyPress = ''
 
+    plr.inv=math.max(0,plr.inv-dt)
     --plr.collider:setX(plr.x) 
     --plr.collider:setY(plr.y)
     
@@ -55,15 +58,19 @@ function rabbit_update(dt)
     plr.dy = plr.dy  * 0.5
     if keyPress=='a' and plr.dx<0.01 and plr.dy<0.01 then
         plr.dx=-plr.rabbit_speed
+        plr.start_jump=true
     end
     if keyPress=='d' and plr.dx<0.01 and plr.dy<0.01 then
         plr.dx=plr.rabbit_speed
+        plr.start_jump=true
     end
     if keyPress=='w' and plr.dx<0.01 and plr.dy<0.01 then
         plr.dy=-plr.rabbit_speed
+        plr.start_jump=true
     end
     if keyPress=='s' and plr.dx<0.01 and plr.dy<0.01 then
         plr.dy=plr.rabbit_speed
+        plr.start_jump=true
     end
     plr.x = plr.x + plr.dx
     plr.y = plr.y + plr.dy
@@ -139,14 +146,15 @@ function player_draw()
         --love.graphics.circle('line',plr.x,plr.y,16)
     elseif plr.state == 1 then
         --display player in rabbit mode
-        if math.abs(plr.dx) > 0.01 or math.abs(plr.dy) > 0.01 then
+        if plr.start_jump then
             --if moving
             local spriteNum = math.floor(plr.animation.currentTime / plr.animation.duration * #plr.animation.quads) + 1
-            love.graphics.draw(plr.animation.spriteSheet, plr.animation.quads[spriteNum], plr.x, plr.y)
+            if spriteNum >= 7 then plr.start_jump=false end
+            love.graphics.draw(plr.animation.spriteSheet, plr.animation.quads[spriteNum], plr.x, plr.y,0,plr.dx<0 and -1 or 1,1)
         else
             --if not moving
             plr.animation.currentTime = 0
-            love.graphics.draw(plr.rabbit_idle_sprite, plr.x, plr.y)
+            love.graphics.draw(plr.rabbit_idle_sprite, plr.x, plr.y,0,plr.dx<0 and -1 or 1,1)
         end
     end
 

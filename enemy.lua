@@ -23,9 +23,10 @@ function enemy_update(dt)
         e.y = e.y + e.spd * math.sin(enemy_angle) * dt
 
         if circle_vs_circle(plr.x,plr.y,16,e.x+8,e.y+8,8) then
-            if plr.state==0 then
+            if plr.state==0 and plr.inv==0 then
                 plr.hp = plr.hp - 1
-            else
+                plr.inv=plr.inv+2
+            elseif plr.inv==0 then
                 plr.state=2
             end
             table.remove(enemies,i)
