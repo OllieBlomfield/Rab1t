@@ -8,12 +8,15 @@ function player_init()
         dx=0,
         dy=0,
         rot=0,
+        bt_rot=0,
         hp=5,
+        max_hp=5,
         tank_speed=30,
         rot_speed=2,
         rabbit_speed=10,
         reload_time=0,
-        tank_sprite=love.graphics.newImage('sprites/ship/testShip.png'),
+        tank_sprite=love.graphics.newImage('sprites/tank/tank_top.png'),
+        tank_base_sprite=love.graphics.newImage('sprites/tank/tank_bottom.png')
         --is_hopping=0,
         --plr_sprite
     }
@@ -70,15 +73,18 @@ function tank_update(dt)
     if love.keyboard.isDown("w") then
         plr.x = plr.x + plr.tank_speed * math.cos(plr.rot) * dt
         plr.y = plr.y + plr.tank_speed * math.sin(plr.rot) * dt
+        plr.bt_rot=plr.rot
     end
 
     if love.keyboard.isDown("s") then
         plr.x = plr.x - plr.tank_speed * math.cos(plr.rot) * dt
         plr.y = plr.y - plr.tank_speed * math.sin(plr.rot) * dt
+        plr.bt_rot=plr.rot
     end
 
     if love.keyboard.isDown("m") and plr.reload_time==0 then
-        add_bullet(plr.x,plr.y,plr.rot,90,1)
+        
+        add_bullet(plr.x+10*math.cos(plr.rot),plr.y+17*math.sin(plr.rot),plr.rot,90,1)
         plr.reload_time=0.3
     end
 end
@@ -88,6 +94,7 @@ function love.keypressed(key)
 end
 
 function player_draw()
-    love.graphics.draw(plr.tank_sprite,plr.x,plr.y,plr.rot,1,1,16,16)
-    love.graphics.print(plr.hp,20,20,0,1,1)
+    love.graphics.draw(plr.tank_base_sprite,plr.x,plr.y,plr.bt_rot,1,1,7,8)
+    love.graphics.draw(plr.tank_sprite,plr.x,plr.y,plr.rot,1,1,7,8)
+    --love.graphics.circle('line',plr.x,plr.y,16)
 end

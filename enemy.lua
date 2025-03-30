@@ -22,6 +22,10 @@ function enemy_update(dt)
         e.x = e.x + e.spd * math.cos(enemy_angle) * dt
         e.y = e.y + e.spd * math.sin(enemy_angle) * dt
 
+        if circle_vs_circle(plr.x,plr.y,16,e.x+8,e.y+8,8) then
+            plr.hp = plr.hp - 1
+            table.remove(enemies,i)
+        end
         --e.collider:setX(e.x)
         --e.collider:setY(e.y)
     end

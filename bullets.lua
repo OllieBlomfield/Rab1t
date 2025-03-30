@@ -20,11 +20,11 @@ function bullet_update(dt)
         b.y = b.y + b.spd * math.sin(b.rot) * dt
         --b.collider:setX(b.x)
         --b.collider:setY(b.y)
-        
+
         for j,e in ipairs(enemies) do
             if circle_vs_circle(b.x+4,b.y+4,4,e.x+8,e.y+8,8) then 
                 table.remove(enemies,j) 
-                table.remove(bullets,i) 
+                table.remove(bullets,i)
             end
         end
     end
