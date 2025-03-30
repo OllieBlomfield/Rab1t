@@ -1,5 +1,5 @@
 bullets = {}
-bullet_img = love.graphics.newImage('sprites/Bullet_test2.png')
+bullet_img = love.graphics.newImage('sprites/newcarrot.png')
 
 function add_bullet(x,y,rot,spd,dmg)
     table.insert(bullets,{
@@ -32,6 +32,6 @@ end
 
 function bullet_draw()
     for i,b in ipairs(bullets) do
-        love.graphics.draw(bullet_img,b.x,b.y,b.rot,1,1,4,8)
+        love.graphics.draw(bullet_img,b.x,b.y,b.rot,1.3,1.3,4,8)
     end
 end
