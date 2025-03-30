@@ -7,7 +7,7 @@ function add_enemy(x,y)
         x=x,
         y=y,
         hp=3,
-        spd=12,
+        spd=50,
         --collider=world:newBSGRectangleCollider(x,y,16,16,8)
     })
 end

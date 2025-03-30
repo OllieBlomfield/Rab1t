@@ -7,6 +7,7 @@ require("enemy")
 require("bullets")
 require("collision")
 require("ui")
+require("waves")
 
 --sets window stuffs
 love.window.setTitle("Tank-Rabbit")
@@ -33,8 +34,6 @@ function love.load()
     
     --initialises objects
     player_init()
-    --[[add_enemy(0,0)
-    add_enemy(150,95)]]
 end
 
 function love.update(dt)
@@ -42,7 +41,7 @@ function love.update(dt)
 
     --updates objects
     player_update(dt)
-    cam:lookAt(plr.x+offset_x,plr.y+offset_y)
+    cam:lookAt(plr.x,plr.y)
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
     local map_w = game_map.width * game_map.tilewidth
