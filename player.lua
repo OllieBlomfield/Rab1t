@@ -1,8 +1,9 @@
 local keyPress = ''
 
+
 function player_init()
     plr = {
-        state=0, --0 tank, 1 rabbit, 2 dead
+        state=1, --0 tank, 1 rabbit, 2 dead
         x=112,
         y=46,
         dx=0,
@@ -13,10 +14,13 @@ function player_init()
         max_hp=5,
         tank_speed=30,
         rot_speed=2,
-        rabbit_speed=10,
+        rabbit_speed=6,
         reload_time=0,
         tank_sprite=love.graphics.newImage('sprites/tank/tank_top.png'),
-        tank_base_sprite=love.graphics.newImage('sprites/tank/tank_bottom.png')
+        tank_base_sprite=love.graphics.newImage('sprites/tank/tank_bottom.png'),
+        rabbit_idle_sprite = love.graphics.newImage('sprites/idlerabbit.png'),
+        animation = newAnimation(love.graphics.newImage("sprites/weakplayer.png"), 32, 32, 0.3)
+
         --is_hopping=0,
         --plr_sprite
     }
@@ -60,6 +64,11 @@ function rabbit_update(dt)
     end
     plr.x = plr.x + plr.dx
     plr.y = plr.y + plr.dy
+
+    plr.animation.currentTime = plr.animation.currentTime + dt
+    if plr.animation.currentTime >= plr.animation.duration then
+        plr.animation.currentTime = plr.animation.currentTime - plr.animation.duration
+    end
 end
 
 function tank_update(dt)
@@ -93,8 +102,39 @@ function love.keypressed(key)
     keyPress = key
 end
 
+function newAnimation(image, width, height, duration)
+    local animation = {}
+    animation.spriteSheet = image;
+    animation.quads = {};
+
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(animation.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+
+    animation.duration = duration or 1
+    animation.currentTime = 0
+
+    return animation
+end
+
 function player_draw()
-    love.graphics.draw(plr.tank_base_sprite,plr.x,plr.y,plr.bt_rot,1,1,7,8)
-    love.graphics.draw(plr.tank_sprite,plr.x,plr.y,plr.rot,1,1,7,8)
-    --love.graphics.circle('line',plr.x,plr.y,16)
+    if plr.state == 0 then
+        --display player in tank mode
+        love.graphics.draw(plr.tank_base_sprite,plr.x,plr.y,plr.bt_rot,1,1,7,8)
+        love.graphics.draw(plr.tank_sprite,plr.x,plr.y,plr.rot,1,1,7,8)
+        --love.graphics.circle('line',plr.x,plr.y,16)
+    elseif plr.state == 1 then
+        --display player in rabbit mode
+        if math.abs(plr.dx) > 0.01 or math.abs(plr.dy) > 0.01 then
+            --if moving
+            local spriteNum = math.floor(plr.animation.currentTime / plr.animation.duration * #plr.animation.quads) + 1
+            love.graphics.draw(plr.animation.spriteSheet, plr.animation.quads[spriteNum], plr.x, plr.y, 0, 0.5)
+        else
+            --if not moving
+            plr.animation.currentTime = 0
+            love.graphics.draw(plr.rabbit_idle_sprite, plr.x, plr.y, 0, 0.5)
+        end
+    end
 end

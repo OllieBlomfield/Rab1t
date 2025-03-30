@@ -1,4 +1,4 @@
---Rab1t by OB and Kudzo
+--Rab1t by OB and kudzo
 
 --establishes all requirements (basically importing them)
 push = require("libraries/push")
