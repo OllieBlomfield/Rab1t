@@ -1,4 +1,4 @@
---Rab1t by OB and Kudzo
+--Rab1t by OB and kudzo
 
 --establishes all requirements (basically importing them)
 push = require("libraries/push")
@@ -7,14 +7,12 @@ require("enemy")
 require("bullets")
 require("collision")
 require("ui")
-require("shoot_effect")
-require("extra")
 
 --sets window stuffs
 love.window.setTitle("Tank-Rabbit")
 love.graphics.setDefaultFilter("nearest","nearest")
 --push:setupScreen(256, 192, 1024, 768, {false, false, false, true})
-
+wave_num = 0
 
 function love.load()
     --globals
@@ -35,8 +33,8 @@ function love.load()
     
     --initialises objects
     player_init()
-    add_enemy(0,0)
-    add_enemy(150,95)
+    --[[add_enemy(0,0)
+    add_enemy(150,95)]]
 end
 
 function love.update(dt)
@@ -74,6 +72,10 @@ function love.update(dt)
 
     enemy_update(dt)
     bullet_update(dt)
+    if #enemies == 0 then
+        wave_num = wave_num + 1
+        start_wave(wave_num)
+    end
     shoot_effect_update(dt)
 
     --world:update(dt)

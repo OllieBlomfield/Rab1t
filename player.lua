@@ -2,6 +2,7 @@ local keyPress = ''
 require("extra")
 require("shoot_effect")
 
+
 function player_init()
     plr = {
         state=0, --0 tank, 1 rabbit, 2 dead
