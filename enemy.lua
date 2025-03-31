@@ -1,6 +1,7 @@
 enemies={}
 enemy_img = love.graphics.newImage('sprites/Enemy_test.png')
 require("collision")
+require("player")
 
 function add_enemy(x,y)
     table.insert(enemies,{
@@ -8,6 +9,10 @@ function add_enemy(x,y)
         y=y,
         hp=3,
         spd=50,
+        animation = newAnimation(love.graphics.newImage("sprites/foxanimation.png"), 45, 32, 10),
+        spriteNum = 1,
+        timePassed = 0,
+        facingRight = true
         --collider=world:newBSGRectangleCollider(x,y,16,16,8)
     })
 end
@@ -22,6 +27,12 @@ function enemy_update(dt)
         e.x = e.x + e.spd * math.cos(enemy_angle) * dt
         e.y = e.y + e.spd * math.sin(enemy_angle) * dt
 
+        if plr.x < e.x then 
+            e.facingRight = false
+        else 
+            e.facingRight = true 
+        end
+
         if circle_vs_circle(plr.x,plr.y,16,e.x+8,e.y+8,8) then
             if plr.state==0 and plr.inv==0 then
                 plr.hp = plr.hp - 1
@@ -33,11 +44,24 @@ function enemy_update(dt)
         end
         --e.collider:setX(e.x)
         --e.collider:setY(e.y)
+        e.timePassed = e.timePassed + dt
     end
 end
 
 function enemy_draw()
     for i,e in ipairs(enemies) do
-        love.graphics.draw(enemy_img,e.x,e.y)
+        --love.graphics.draw(enemy_img,e.x,e.y)
+        if e.timePassed > 0.27 then --prevents spazzing of animation
+            e.spriteNum = e.spriteNum + 1
+            e.timePassed = 0
+        end
+
+        if e.spriteNum > 4 then e.spriteNum = 1 end
+
+        if e.facingRight then
+            love.graphics.draw(e.animation.spriteSheet, e.animation.quads[e.spriteNum], e.x, e.y, 0, 1, 1)
+        else
+            love.graphics.draw(e.animation.spriteSheet, e.animation.quads[e.spriteNum], e.x + 45, e.y, 0, -1, 1)
+        end
     end
 end
