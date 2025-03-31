@@ -3,12 +3,12 @@ enemy_img = love.graphics.newImage('sprites/Enemy_test.png')
 require("collision")
 require("player")
 
-function add_enemy(x,y)
+function add_enemy(x,y,spd)
     table.insert(enemies,{
         x=x,
         y=y,
         hp=3,
-        spd=50,
+        spd=spd,
         animation = newAnimation(love.graphics.newImage("sprites/foxanimation.png"), 45, 32, 10),
         spriteNum = 1,
         timePassed = 0,
