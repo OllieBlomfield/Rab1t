@@ -10,7 +10,7 @@ pixel_font = love.graphics.newFont('font/HomeVideoBold-R90Dv.ttf')
 pixel_font:setFilter("nearest","nearest")
 u_font = love.graphics.newFont('font/HomeVideo-BLG6G.ttf')
 score=0
-game_state = 2 --0 for menu, 1 for game, 2 for game_over
+game_state = 0 --0 for menu, 1 for game, 2 for game_over
 
 function love.load()
     if game_state==1 then
