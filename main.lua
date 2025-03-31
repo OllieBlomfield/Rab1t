@@ -1,5 +1,6 @@
 require("level")
 require("game_over")
+require("intro")
 
 --sets window stuffs
 love.window.setTitle("Tank-Rabbit")
@@ -10,7 +11,7 @@ pixel_font = love.graphics.newFont('font/HomeVideoBold-R90Dv.ttf')
 pixel_font:setFilter("nearest","nearest")
 u_font = love.graphics.newFont('font/HomeVideo-BLG6G.ttf')
 score=0
-game_state = 1 --0 for menu, 1 for game, 2 for game_over
+game_state = 0 --0 for menu, 1 for game, 2 for game_over
 
 function love.load()
     if game_state==1 then
@@ -30,7 +31,9 @@ end
 
 function love.draw()
     love.graphics.setFont(pixel_font)
-    if game_state==1 then
+    if game_state==0 then
+        intro_draw()
+    elseif game_state==1 then
         level_draw()
     elseif game_state==2 then
         over_draw()

@@ -33,7 +33,7 @@ function enemy_update(dt)
             e.facingRight = true 
         end
 
-        if circle_vs_circle(plr.x,plr.y,16,e.x+8,e.y+8,8) then
+        if circle_vs_circle(plr.x,plr.y,16,e.x+16,e.y+8,10) then
             if plr.state==0 and plr.inv==0 then
                 plr.hp = plr.hp - 1
                 plr.inv=plr.inv+2
@@ -50,6 +50,7 @@ end
 
 function enemy_draw()
     for i,e in ipairs(enemies) do
+        --love.graphics.circle('line',e.x+16,e.y+8,10)
         --love.graphics.draw(enemy_img,e.x,e.y)
         if e.timePassed > 0.27 then --prevents spazzing of animation
             e.spriteNum = e.spriteNum + 1

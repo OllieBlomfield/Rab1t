@@ -22,12 +22,12 @@ function bullet_update(dt)
         --b.collider:setY(b.y)
 
         for j,e in ipairs(enemies) do
-            if circle_vs_circle(b.x+4,b.y+4,4,e.x+16,e.y+16,16) then 
+            if circle_vs_circle(b.x+4,b.y+4,4,e.x+22,e.y+10,16) then 
                 table.remove(enemies,j) 
                 table.remove(bullets,i)
                 money = money + 1
                 score = score + 1
-                add_shoot_effect(e.x,e.y,5)
+                add_shoot_effect(e.x-10,e.y-10,4)
             end
         end
     end

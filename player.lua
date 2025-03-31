@@ -114,9 +114,8 @@ function tank_update(dt)
         plr.reload_time=0.3
     end
 
-    --plr.rot = plr.rot%(3.1415*2)
-
     if plr.hp<=0 then
+        add_shoot_effect(plr.x-20,plr.y-16,5)
         plr.state=1
     end
 end
