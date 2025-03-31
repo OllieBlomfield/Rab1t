@@ -12,7 +12,7 @@ function player_init()
         dy=0,
         rot=0,
         bt_rot=0,
-        hp=2,
+        hp=5,
         inv=0,
         max_hp=5,
         bullet_spd=280,
@@ -38,6 +38,8 @@ function player_update(dt)
         tank_update(dt)
     elseif plr.state==1 then
         rabbit_update(dt)
+    elseif plr.state==2 then
+        game_state=2
     end
     
     --[[if plr.collider:enter('Enemy') then
@@ -79,6 +81,7 @@ function rabbit_update(dt)
     if plr.animation.currentTime >= plr.animation.duration then
         plr.animation.currentTime = plr.animation.currentTime - plr.animation.duration
     end
+
 end
 
 function tank_update(dt)
@@ -143,19 +146,30 @@ function player_draw()
     if plr.state==0 then
         love.graphics.draw(plr.tank_base_sprite,plr.x,plr.y,plr.bt_rot,3,3,7,8)
         love.graphics.draw(plr.tank_sprite,plr.x,plr.y,plr.rot,3,3,7,8)
-        --love.graphics.circle('line',plr.x,plr.y,16)
     elseif plr.state == 1 then
         --display player in rabbit mode
         if plr.start_jump then
             --if moving
             local spriteNum = math.floor(plr.animation.currentTime / plr.animation.duration * #plr.animation.quads) + 1
             if spriteNum >= 7 then plr.start_jump=false end
-            love.graphics.draw(plr.animation.spriteSheet, plr.animation.quads[spriteNum], plr.x, plr.y,0,plr.dx<0 and -1 or 1,1)
+            love.graphics.draw(plr.animation.spriteSheet, plr.animation.quads[spriteNum], plr.x, plr.y,0,1,1)
+            --plr.dx<0 and -1 or 1
         else
             --if not moving
             plr.animation.currentTime = 0
-            love.graphics.draw(plr.rabbit_idle_sprite, plr.x, plr.y,0,plr.dx<0 and -1 or 1,1)
+            love.graphics.draw(plr.rabbit_idle_sprite, plr.x, plr.y,0,1,1)
         end
     end
+    --love.graphics.circle('line',1200+1.5*64,1200+1.5*48,140)
+    if circle_vs_circle(plr.x,plr.y,48,1200+1.5*64,1200+1.5*48,140) and wave_num>0 and upgrade_menu==false then
+        if mid_wave_timer>2.5 or plr.state==1 then
+            love.graphics.print({{0,0,0},"x to enter barn"},plr.x-100,plr.y-40)
+            if love.keyboard.isDown('x') and t>0.1 then upgrade_menu=true end
+        else
+            love.graphics.print({{0.8,0,0},"cannot enter barn"},plr.x-100,plr.y-40)
+        end
+    end
+
+    --love.graphics.circle('line',plr.x+16,plr.y+16,16)
 
 end
